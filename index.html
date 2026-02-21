@@ -31,10 +31,13 @@
 </head>
 <body>
 
+  <!-- Skip link for keyboard users -->
+  <a href="#waitlist" class="skip-link">Skip to waitlist</a>
+
   <!-- ===== HERO ===== -->
-  <section class="hero" id="top">
-    <nav class="nav">
-      <div class="nav__logo">block<span class="dot">.</span></div>
+  <section class="hero" id="top" aria-label="Hero">
+    <nav class="nav" aria-label="Main navigation">
+      <div class="nav__logo"><a href="#top" aria-label="block. BODY. — Back to top">block<span class="dot">.</span></a></div>
       <a href="#waitlist" class="nav__cta">Join the Waitlist</a>
     </nav>
 
@@ -103,32 +106,32 @@
       <h2 class="section-title">Nothing to hide.</h2>
       <div class="ingredients__grid">
         <div class="ingredient-card">
-          <div class="ingredient-card__img"><img src="images/ingredient-camel-milk.png" alt="Camel milk"></div>
+          <div class="ingredient-card__img"><img loading="lazy" src="images/ingredient-camel-milk.png" alt="Camel milk"></div>
           <h3>Camel Milk</h3>
           <p>Rich in AHA, vitamin C, and natural fats. Used for centuries in desert skincare. We use it instead of water — every drop matters.</p>
         </div>
         <div class="ingredient-card">
-          <div class="ingredient-card__img"><img src="images/ingredient-olive-oil.png" alt="Olive oil"></div>
+          <div class="ingredient-card__img"><img loading="lazy" src="images/ingredient-olive-oil.png" alt="Olive oil"></div>
           <h3>Olive Oil</h3>
           <p>The backbone. Deep moisture without stripping your skin's natural barrier.</p>
         </div>
         <div class="ingredient-card">
-          <div class="ingredient-card__img"><img src="images/ingredient-coconut.png" alt="Coconut oil"></div>
+          <div class="ingredient-card__img"><img loading="lazy" src="images/ingredient-coconut.png" alt="Coconut oil"></div>
           <h3>Coconut Oil</h3>
           <p>Creates that rich, creamy lather. Naturally antibacterial.</p>
         </div>
         <div class="ingredient-card">
-          <div class="ingredient-card__img"><img src="images/ingredient-shea-butter.png" alt="Shea butter"></div>
+          <div class="ingredient-card__img"><img loading="lazy" src="images/ingredient-shea-butter.png" alt="Shea butter"></div>
           <h3>Shea Butter</h3>
           <p>Locks in moisture. Soothes and softens even the most sensitive skin.</p>
         </div>
         <div class="ingredient-card">
-          <div class="ingredient-card__img"><img src="images/ingredient-pink-clay.png" alt="Pink kaolin clay"></div>
+          <div class="ingredient-card__img"><img loading="lazy" src="images/ingredient-pink-clay.png" alt="Pink kaolin clay"></div>
           <h3>Pink Kaolin Clay</h3>
           <p>Gentle detox. Draws impurities while adding that signature blush tone.</p>
         </div>
         <div class="ingredient-card">
-          <div class="ingredient-card__img"><img src="images/ingredient-charcoal.png" alt="Activated charcoal"></div>
+          <div class="ingredient-card__img"><img loading="lazy" src="images/ingredient-charcoal.png" alt="Activated charcoal"></div>
           <h3>Activated Charcoal</h3>
           <p>A single line between layers. Purifying. Striking. The signature of every block.</p>
         </div>
@@ -181,7 +184,7 @@
           <p class="section-body wrap__materials">Available wraps change with every batch. Some materials are one-of-a-kind. Choose yours before it's gone.</p>
         </div>
         <div class="wrap__visual">
-          <img src="images/furoshiki-wrap.png" alt="Soap wrapped in locally-sourced fabric, furoshiki style" class="wrap__image">
+          <img loading="lazy" src="images/furoshiki-wrap.png" alt="Soap wrapped in locally-sourced fabric, furoshiki style" class="wrap__image">
         </div>
       </div>
     </div>
@@ -244,14 +247,18 @@
       <h2 class="section-title">Join the waitlist.</h2>
       <p class="section-body">Batch #1 is in the works. Leave your details and we'll let you know the moment it's ready — and give you first pick of serial numbers and wraps.</p>
 
-      <form class="waitlist__form" id="waitlistForm">
+      <form class="waitlist__form" id="waitlistForm" aria-label="Waitlist signup">
         <div class="form__row">
-          <input type="text" name="name" placeholder="Your name" required class="form__input">
-          <input type="email" name="email" placeholder="Email address" required class="form__input">
+          <label class="sr-only" for="wl-name">Your name</label>
+          <input type="text" id="wl-name" name="name" placeholder="Your name" required class="form__input" autocomplete="name">
+          <label class="sr-only" for="wl-email">Email address</label>
+          <input type="email" id="wl-email" name="email" placeholder="Email address" required class="form__input" autocomplete="email">
         </div>
         <div class="form__row">
-          <input type="tel" name="phone" placeholder="WhatsApp number (optional)" class="form__input">
-          <select name="barNumber" class="form__input form__select">
+          <label class="sr-only" for="wl-phone">WhatsApp number</label>
+          <input type="tel" id="wl-phone" name="phone" placeholder="WhatsApp number (optional)" class="form__input" autocomplete="tel">
+          <label class="sr-only" for="wl-bar">Preferred bar number</label>
+          <select id="wl-bar" name="barNumber" class="form__input form__select">
             <option value="">Preferred bar # (optional)</option>
           </select>
         </div>

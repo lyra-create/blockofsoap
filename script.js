@@ -216,11 +216,16 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // ===== Nav background on scroll =====
+  // ===== Nav background on scroll + scroll hint hide =====
   const nav = document.querySelector('.nav');
+  const scrollHint = document.querySelector('.hero__scroll-hint');
+  let scrollHintHidden = false;
+
   if (nav) {
     window.addEventListener('scroll', () => {
-      if (window.pageYOffset > 80) {
+      const y = window.pageYOffset;
+
+      if (y > 80) {
         nav.style.background = 'rgba(245, 237, 228, 0.95)';
         nav.style.backdropFilter = 'blur(10px)';
         nav.style.borderBottom = '1px solid rgba(0,0,0,0.05)';
@@ -228,6 +233,12 @@ document.addEventListener('DOMContentLoaded', () => {
         nav.style.background = 'transparent';
         nav.style.backdropFilter = 'none';
         nav.style.borderBottom = 'none';
+      }
+
+      // Hide scroll hint after first scroll
+      if (!scrollHintHidden && y > 50 && scrollHint) {
+        scrollHint.classList.add('hidden');
+        scrollHintHidden = true;
       }
     }, { passive: true });
   }

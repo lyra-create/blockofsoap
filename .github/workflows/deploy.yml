@@ -1,0 +1,13 @@
+name: Deploy to Coolify
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: [self-hosted]
+    steps:
+      - name: Deploy via Coolify API
+        run: |
+          curl -s -X POST "${{ secrets.COOLIFY_URL }}/api/v1/applications/${{ secrets.COOLIFY_APP_UUID }}/restart" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_KEY }}"

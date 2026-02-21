@@ -290,6 +290,7 @@ ul { list-style: none; }
   padding: var(--section-pad) 0;
   background: var(--charcoal);
   color: var(--cream-light);
+  overflow: hidden;
 }
 .ingredients .section-title {
   color: var(--cream-light);
@@ -304,7 +305,32 @@ ul { list-style: none; }
   background: rgba(255,255,255,0.04);
   border: 1px solid rgba(255,255,255,0.08);
   padding: 32px;
-  transition: all 0.3s var(--ease-smooth);
+  transition: all 0.5s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+/* Pour-in shimmer overlay */
+.ingredient-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.04),
+    transparent
+  );
+  transition: none;
+  pointer-events: none;
+}
+.ingredient-card.visible::before {
+  animation: shimmerPour 1.2s 0.4s ease-out forwards;
+}
+@keyframes shimmerPour {
+  0%   { left: -60%; }
+  100% { left: 120%; }
 }
 .ingredient-card:hover {
   background: rgba(255,255,255,0.08);
@@ -316,15 +342,41 @@ ul { list-style: none; }
   overflow: hidden;
   margin-bottom: 16px;
   border-radius: 4px;
+  position: relative;
+}
+/* Liquid fill reveal — image appears to "pour in" from top */
+.ingredient-card__img::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--charcoal);
+  transform-origin: top;
+  transform: scaleY(1);
+  transition: transform 0.9s var(--ease-smooth);
+  z-index: 1;
+}
+.ingredient-card.visible .ingredient-card__img::after {
+  transform: scaleY(0);
+  transform-origin: bottom;
 }
 .ingredient-card__img img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.4s var(--ease-smooth);
+  transition: transform 0.6s var(--ease-smooth);
+  /* Gentle float animation on visible */
+}
+.ingredient-card.visible .ingredient-card__img img {
+  animation: gentleFloat 6s ease-in-out infinite;
+  animation-delay: var(--float-delay, 0s);
+}
+@keyframes gentleFloat {
+  0%, 100% { transform: scale(1) translateY(0); }
+  50%      { transform: scale(1.03) translateY(-4px); }
 }
 .ingredient-card:hover .ingredient-card__img img {
-  transform: scale(1.05);
+  transform: scale(1.08);
+  animation: none;
 }
 .ingredient-card h3 {
   font-family: var(--font-display);
@@ -332,11 +384,42 @@ ul { list-style: none; }
   font-weight: 600;
   margin-bottom: 8px;
   color: var(--cream);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.5s 0.3s var(--ease-smooth);
+}
+.ingredient-card.visible h3 {
+  transform: translateY(0);
+  opacity: 1;
 }
 .ingredient-card p {
   font-size: 0.95rem;
   line-height: 1.6;
   color: rgba(255,255,255,0.6);
+  transform: translateY(10px);
+  opacity: 0;
+  transition: all 0.5s 0.45s var(--ease-smooth);
+}
+.ingredient-card.visible p {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Drip/pour decoration on the ingredients section header */
+.ingredients .section-title {
+  position: relative;
+}
+.ingredients .section-title::after {
+  content: '';
+  display: block;
+  width: 2px;
+  height: 0;
+  background: var(--pink);
+  margin: 16px auto 0;
+  transition: height 0.8s 0.2s var(--ease-smooth);
+}
+.ingredients .section-title.visible::after {
+  height: 40px;
 }
 
 /* ===== PROVENANCE ===== */
@@ -667,6 +750,90 @@ ul { list-style: none; }
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* Slide-in from left/right */
+.slide-in-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: all 0.8s var(--ease-smooth);
+}
+.slide-in-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.slide-in-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: all 0.8s var(--ease-smooth);
+}
+.slide-in-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Scale reveal */
+.scale-reveal {
+  opacity: 0;
+  transform: scale(0.85);
+  transition: all 0.8s var(--ease-spring);
+}
+.scale-reveal.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Counter count-up animation */
+@keyframes countPulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+.batch__number.animate {
+  animation: countPulse 0.4s var(--ease-spring);
+}
+
+/* Timeline line fill */
+.timeline::before {
+  transform-origin: top;
+  transform: scaleY(0);
+  transition: transform 1.5s var(--ease-smooth);
+}
+.timeline.visible::before {
+  transform: scaleY(1);
+}
+
+/* Timeline marker pop */
+.timeline__marker {
+  transform: scale(0);
+  transition: transform 0.4s var(--ease-spring);
+}
+.timeline__step.visible .timeline__marker {
+  transform: scale(1);
+}
+
+/* Wrap image parallax-ready */
+.wrap__image {
+  transition: transform 0.1s linear;
+}
+
+/* Provenance card subtle float */
+.provenance-card {
+  transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s;
+}
+.provenance-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0,0,0,0.08);
+}
+
+/* Pricing card glow on visible */
+.pricing__card.visible {
+  animation: priceGlow 1.5s ease-out;
+}
+@keyframes priceGlow {
+  0%   { box-shadow: 0 0 0 0 rgba(196, 137, 123, 0.3); }
+  50%  { box-shadow: 0 0 40px 8px rgba(196, 137, 123, 0.15); }
+  100% { box-shadow: none; }
 }
 
 /* ===== RESPONSIVE ===== */

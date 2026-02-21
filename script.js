@@ -2,7 +2,7 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ===== Scroll-triggered fade-in =====
+  // ===== Scroll-triggered animations =====
   const observerOptions = {
     threshold: 0.15,
     rootMargin: '0px 0px -60px 0px'
@@ -18,34 +18,150 @@ document.addEventListener('DOMContentLoaded', () => {
   }, observerOptions);
 
   // Observe timeline steps
-  document.querySelectorAll('.timeline__step').forEach(el => observer.observe(el));
+  document.querySelectorAll('.timeline__step').forEach((el, i) => {
+    el.style.transitionDelay = `${i * 0.2}s`;
+    observer.observe(el);
+  });
 
-  // Add fade-up class to key elements and observe
+  // Observe the timeline container for line fill
+  const timeline = document.querySelector('.timeline');
+  if (timeline) observer.observe(timeline);
+
+  // Add fade-up class to standard elements and observe
   const fadeTargets = [
     '.section-eyebrow',
     '.section-title',
     '.section-body',
-    '.ingredient-card',
     '.batch__counter',
-    '.pricing__card',
     '.waitlist__form',
-    '.wrap__text',
-    '.wrap__visual'
   ];
 
   fadeTargets.forEach(selector => {
     document.querySelectorAll(selector).forEach(el => {
-      // Don't double-animate hero elements
       if (el.closest('.hero')) return;
       el.classList.add('fade-up');
       observer.observe(el);
     });
   });
 
-  // Stagger ingredient cards
+  // Ingredient cards — staggered with pour animation
   document.querySelectorAll('.ingredient-card').forEach((card, i) => {
-    card.style.transitionDelay = `${i * 0.1}s`;
+    card.style.transitionDelay = `${i * 0.12}s`;
+    card.style.setProperty('--float-delay', `${i * 0.8}s`);
+    card.classList.add('fade-up');
+    observer.observe(card);
   });
+
+  // Wrap section — slide in from sides
+  const wrapText = document.querySelector('.wrap__text');
+  const wrapVisual = document.querySelector('.wrap__visual');
+  if (wrapText) {
+    wrapText.classList.add('slide-in-left');
+    observer.observe(wrapText);
+  }
+  if (wrapVisual) {
+    wrapVisual.classList.add('slide-in-right');
+    observer.observe(wrapVisual);
+  }
+
+  // Provenance — slide in
+  const provText = document.querySelector('.provenance__text');
+  const provVisual = document.querySelector('.provenance__visual');
+  if (provText) {
+    provText.classList.add('slide-in-right');
+    observer.observe(provText);
+  }
+  if (provVisual) {
+    provVisual.classList.add('slide-in-left');
+    observer.observe(provVisual);
+  }
+
+  // Pricing card — scale reveal
+  const pricingCard = document.querySelector('.pricing__card');
+  if (pricingCard) {
+    pricingCard.classList.add('scale-reveal');
+    observer.observe(pricingCard);
+  }
+
+
+  // ===== Batch counter — count-up animation =====
+  const batchSection = document.querySelector('.batch');
+  if (batchSection) {
+    const batchObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounters();
+          batchObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    batchObserver.observe(batchSection);
+  }
+
+  function animateCounters() {
+    const barsEl = document.getElementById('barsAvailable');
+    if (!barsEl) return;
+
+    const target = 97;
+    const duration = 1200;
+    const start = performance.now();
+
+    function tick(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease-out quad
+      const eased = 1 - (1 - progress) * (1 - progress);
+      const current = Math.round(eased * target);
+      barsEl.textContent = current;
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
+      } else {
+        barsEl.classList.add('animate');
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+
+
+  // ===== Parallax effects =====
+  if (window.innerWidth > 768) {
+    const heroPhoto = document.querySelector('.hero__photo');
+    const wrapImage = document.querySelector('.wrap__image');
+
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+
+      // Hero photo subtle rotation + lift
+      if (heroPhoto) {
+        const rate = scrolled * 0.15;
+        heroPhoto.style.transform = `rotate(${-3 + scrolled * 0.008}deg) translateY(${rate}px)`;
+      }
+
+      // Wrap image parallax
+      if (wrapImage) {
+        const rect = wrapImage.getBoundingClientRect();
+        const inView = rect.top < window.innerHeight && rect.bottom > 0;
+        if (inView) {
+          const center = (rect.top + rect.bottom) / 2;
+          const offset = (window.innerHeight / 2 - center) * 0.06;
+          wrapImage.style.transform = `translateY(${offset}px)`;
+        }
+      }
+
+      // Ingredient images subtle parallax
+      document.querySelectorAll('.ingredient-card__img img').forEach((img) => {
+        const rect = img.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+          const center = (rect.top + rect.bottom) / 2;
+          const offset = (window.innerHeight / 2 - center) * 0.04;
+          if (!img.closest('.ingredient-card:hover')) {
+            img.style.transform = `translateY(${offset}px) scale(1)`;
+          }
+        }
+      });
+    }, { passive: true });
+  }
 
 
   // ===== Populate bar number selector =====
@@ -77,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         timestamp: new Date().toISOString()
       };
 
-      // For now, log to console. Will hook up backend later.
       console.log('Waitlist signup:', entry);
 
       // Store locally as fallback
@@ -90,17 +205,6 @@ document.addEventListener('DOMContentLoaded', () => {
       success.style.display = 'block';
       success.classList.add('fade-up', 'visible');
     });
-  }
-
-
-  // ===== Smooth parallax on hero image =====
-  const heroPhoto = document.querySelector('.hero__photo');
-  if (heroPhoto && window.innerWidth > 768) {
-    window.addEventListener('scroll', () => {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * 0.15;
-      heroPhoto.style.transform = `rotate(${-3 + scrolled * 0.008}deg) translateY(${rate}px)`;
-    }, { passive: true });
   }
 
 
@@ -145,6 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Hero photo entrance
+  const heroPhoto = document.querySelector('.hero__photo');
   if (heroPhoto) {
     heroPhoto.style.opacity = '0';
     heroPhoto.style.transform = 'rotate(-3deg) scale(0.8)';

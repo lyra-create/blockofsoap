@@ -42,7 +42,7 @@ body {
   overflow-x: hidden;
 }
 a { color: inherit; text-decoration: none; }
-img { max-width: 100%; display: block; }
+img { max-width: 100%; height: auto; display: block; }
 ul { list-style: none; }
 
 .container {
@@ -881,7 +881,8 @@ ul { list-style: none; }
   .hero__content {
     grid-template-columns: 1fr;
     text-align: center;
-    padding-top: 100px;
+    padding: 90px 20px 80px;
+    gap: 24px;
   }
   .hero__subtitle {
     margin-left: auto;
@@ -889,6 +890,20 @@ ul { list-style: none; }
   }
   .hero__image {
     order: -1;
+    overflow: hidden;
+  }
+  .hero__photo {
+    max-height: 280px;
+    width: auto;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+  .hero__title {
+    font-size: 2.2rem;
+    word-wrap: break-word;
+  }
+  .hero__eyebrow {
+    font-size: 0.7rem;
   }
   .soap-block {
     width: 200px;
@@ -896,6 +911,15 @@ ul { list-style: none; }
   }
   .wrap__layout {
     grid-template-columns: 1fr;
+  }
+  .wrap__visual {
+    order: -1;
+  }
+  .provenance__layout {
+    grid-template-columns: 1fr;
+  }
+  .provenance__visual {
+    order: -1;
   }
   .form__row {
     grid-template-columns: 1fr;
@@ -910,6 +934,14 @@ ul { list-style: none; }
   }
   .ingredients__grid {
     grid-template-columns: 1fr;
+  }
+  /* Disable parallax on mobile — can feel janky */
+  .hero__photo,
+  .wrap__image {
+    transform: none !important;
+  }
+  .hero__photo:hover {
+    transform: scale(1.02) !important;
   }
 }
 

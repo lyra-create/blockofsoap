@@ -9,5 +9,7 @@ jobs:
     steps:
       - name: Deploy via Coolify API
         run: |
-          curl -s -X POST "${{ secrets.COOLIFY_URL }}/api/v1/applications/${{ secrets.COOLIFY_APP_UUID }}/restart" \
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_KEY }}"
+          curl -s -X POST "${{ secrets.COOLIFY_URL }}/api/v1/deploy" \
+            -H "Authorization: Bearer ${{ secrets.COOLIFY_API_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{"uuid": "${{ secrets.COOLIFY_APP_UUID }}", "force": true}'

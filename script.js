@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
         timestamp: new Date().toISOString()
       };
 
-      console.log('Waitlist signup:', entry);
+      // Entry stored locally
 
       // Store locally as fallback
       const existing = JSON.parse(localStorage.getItem('blockWaitlist') || '[]');

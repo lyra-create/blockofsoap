@@ -423,16 +423,10 @@ ul { list-style: none; }
   gap: 60px;
   align-items: center;
 }
-.wrap-placeholder {
+.wrap__image {
   width: 100%;
-  aspect-ratio: 1;
-  background: var(--cream);
-  border: 1px solid var(--cream-dark);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--charcoal-light);
-  font-size: 0.9rem;
+  border-radius: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
 }
 .wrap__materials {
   font-style: italic;

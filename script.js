@@ -83,6 +83,20 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(pricingCard);
   }
 
+  // Journey cards — staggered fade-up
+  document.querySelectorAll('.journey__card').forEach((card, i) => {
+    card.classList.add('fade-up');
+    card.style.transitionDelay = `${i * 0.1}s`;
+    observer.observe(card);
+  });
+
+  // FAQ items — staggered fade-up
+  document.querySelectorAll('.faq__item').forEach((item, i) => {
+    item.classList.add('fade-up');
+    item.style.transitionDelay = `${Math.min(i * 0.05, 0.4)}s`;
+    observer.observe(item);
+  });
+
 
   // ===== Batch counter — count-up animation =====
   const batchSection = document.querySelector('.batch');

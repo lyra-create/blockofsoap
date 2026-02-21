@@ -1,0 +1,375 @@
+/* ===== GUIDE PAGE STYLES ===== */
+
+.guide-page { background: var(--cream-light); }
+
+/* Guide Nav */
+.guide-nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(245, 237, 228, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--cream-dark);
+  padding: 16px 0;
+}
+.guide-nav__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.guide-nav__logo {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  text-decoration: none;
+}
+.guide-nav__title {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--charcoal-light);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+/* Guide Hero */
+.guide-hero {
+  padding: 100px 0 60px;
+  text-align: center;
+}
+.guide-hero__title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--charcoal);
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+.guide-hero__sub {
+  font-size: 1.05rem;
+  color: var(--charcoal-mid);
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+/* Table of Contents */
+.guide-toc {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 0 auto;
+  max-width: 700px;
+}
+.guide-toc a {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--charcoal-mid);
+  padding: 6px 14px;
+  border: 1px solid var(--cream-dark);
+  border-radius: 100px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.guide-toc a:hover {
+  color: var(--charcoal);
+  border-color: var(--pink);
+  background: var(--pink-soft);
+}
+
+/* Guide Sections */
+.guide-section {
+  padding: 80px 0;
+}
+.guide-section--alt {
+  background: var(--white);
+}
+.guide-section__header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 32px;
+}
+.guide-section__num {
+  font-family: var(--font-display);
+  font-size: 3rem;
+  font-weight: 400;
+  color: var(--pink-light);
+  line-height: 1;
+}
+.guide-section__header h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--charcoal);
+}
+.guide-section__content {
+  max-width: 720px;
+  margin-left: 80px;
+}
+.guide-section__content > p {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--charcoal-mid);
+  margin-bottom: 24px;
+}
+.guide-section__content blockquote {
+  border-left: 3px solid var(--pink);
+  padding: 16px 24px;
+  margin: 32px 0;
+  background: var(--pink-soft);
+  border-radius: 0 8px 8px 0;
+}
+.guide-section__content blockquote p {
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--charcoal-mid);
+  line-height: 1.7;
+}
+
+/* Comparison */
+.guide-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 32px 0;
+}
+.guide-comparison__col {
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: 10px;
+  padding: 28px;
+}
+.guide-comparison__col--highlight {
+  background: var(--pink-soft);
+  border-color: var(--pink-light);
+}
+.guide-comparison__col h3 {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  margin-bottom: 16px;
+  color: var(--charcoal);
+}
+.guide-comparison__col ul {
+  list-style: none;
+  padding: 0;
+}
+.guide-comparison__col ul li {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--charcoal-mid);
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+.guide-comparison__col ul li:last-child { border-bottom: none; }
+
+/* Features */
+.guide-features {
+  display: grid;
+  gap: 24px;
+  margin: 24px 0;
+}
+.guide-feature {
+  padding: 24px;
+  background: var(--cream-light);
+  border-radius: 10px;
+  border-left: 3px solid var(--pink);
+}
+.guide-feature h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+.guide-feature p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--charcoal-mid);
+}
+
+/* Steps */
+.guide-steps {
+  display: grid;
+  gap: 24px;
+  margin: 24px 0;
+}
+.guide-step {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+.guide-step__num {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  background: var(--pink);
+  color: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+.guide-step h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+}
+.guide-step p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--charcoal-mid);
+}
+
+/* Tips */
+.guide-tips {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 24px 0;
+}
+.guide-tip {
+  padding: 24px;
+  background: var(--cream-light);
+  border: 1px solid var(--cream-dark);
+  border-radius: 10px;
+}
+.guide-tip h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--charcoal);
+}
+.guide-tip p {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--charcoal-mid);
+}
+
+/* Benefits */
+.guide-benefits {
+  display: grid;
+  gap: 20px;
+  margin: 24px 0;
+}
+.guide-benefit {
+  padding: 24px;
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: 10px;
+}
+.guide-benefit h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 8px;
+}
+.guide-benefit p {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--charcoal-mid);
+}
+
+/* Ingredient Table */
+.guide-ingredient-table {
+  margin: 24px 0;
+}
+.guide-ingredient-row {
+  display: grid;
+  grid-template-columns: 160px 140px 1fr;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--cream-dark);
+  align-items: start;
+}
+.guide-ingredient-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--charcoal);
+}
+.guide-ingredient-role {
+  font-size: 0.8rem;
+  color: var(--pink);
+  font-weight: 500;
+}
+.guide-ingredient-why {
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--charcoal-mid);
+}
+.guide-ingredient-note {
+  margin-top: 24px;
+  font-size: 0.95rem;
+  color: var(--charcoal);
+}
+
+/* Myths */
+.guide-myths {
+  display: grid;
+  gap: 32px;
+  margin: 24px 0;
+}
+.guide-myth {
+  padding: 28px;
+  background: var(--white);
+  border: 1px solid var(--cream-dark);
+  border-radius: 10px;
+}
+.guide-myth__label {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 3px 10px;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}
+.guide-myth__label--myth {
+  background: rgba(220, 80, 80, 0.1);
+  color: #C05050;
+}
+.guide-myth__label--fact {
+  background: rgba(74, 180, 100, 0.1);
+  color: #3A8A50;
+  margin-top: 16px;
+}
+.guide-myth__text {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--charcoal-mid);
+}
+
+/* Guide CTA */
+.guide-cta {
+  padding: 80px 0;
+  text-align: center;
+  background: var(--pink-soft);
+}
+.guide-cta h2 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--charcoal);
+  margin-bottom: 12px;
+}
+.guide-cta p {
+  color: var(--charcoal-mid);
+  margin-bottom: 24px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .guide-section__content { margin-left: 0; }
+  .guide-comparison { grid-template-columns: 1fr; }
+  .guide-tips { grid-template-columns: 1fr; }
+  .guide-ingredient-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .guide-section__header { gap: 12px; }
+  .guide-section__num { font-size: 2rem; }
+  .guide-nav__title { display: none; }
+}

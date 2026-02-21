@@ -339,6 +339,79 @@ ul { list-style: none; }
   color: rgba(255,255,255,0.6);
 }
 
+/* ===== PROVENANCE ===== */
+.provenance {
+  padding: var(--section-pad) 0;
+  background: var(--cream);
+}
+.provenance__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.provenance-card {
+  background: var(--cream-light);
+  border: 1px solid var(--cream-dark);
+  padding: 40px;
+  max-width: 380px;
+  margin: 0 auto;
+}
+.provenance-card__arabic {
+  text-align: center;
+  padding: 16px 0;
+}
+.provenance-card__label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal-light);
+  margin-bottom: 8px;
+}
+.provenance-card__value {
+  display: block;
+  font-size: 1.6rem;
+  color: var(--charcoal);
+  font-weight: 300;
+  line-height: 1.4;
+}
+.provenance-card__divider {
+  height: 1px;
+  background: var(--cream-dark);
+  margin: 4px 0;
+}
+.provenance-card__batch {
+  text-align: center;
+  padding-top: 16px;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  color: var(--charcoal-light);
+}
+.provenance__arabic-note {
+  font-style: italic;
+  color: var(--pink) !important;
+  direction: rtl;
+  text-align: right;
+  line-height: 1.8;
+}
+.provenance__translation {
+  direction: ltr;
+  font-size: 0.85rem;
+  color: var(--charcoal-light) !important;
+  font-style: normal;
+}
+
+@media (max-width: 768px) {
+  .provenance__layout {
+    grid-template-columns: 1fr;
+  }
+  .provenance__visual {
+    order: -1;
+  }
+}
+
 /* ===== THE WRAP ===== */
 .wrap {
   padding: var(--section-pad) 0;

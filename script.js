@@ -184,6 +184,11 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Joining...';
+      submitBtn.classList.add('btn--loading');
+
       const data = new FormData(form);
       const entry = {
         name: data.get('name'),
@@ -200,10 +205,13 @@ document.addEventListener('DOMContentLoaded', () => {
       existing.push(entry);
       localStorage.setItem('blockWaitlist', JSON.stringify(existing));
 
-      // Show success state
-      form.style.display = 'none';
-      success.style.display = 'block';
-      success.classList.add('fade-up', 'visible');
+      // Simulate network delay for polish, then show success
+      setTimeout(() => {
+        submitBtn.classList.remove('btn--loading');
+        form.style.display = 'none';
+        success.style.display = 'block';
+        success.classList.add('fade-up', 'visible');
+      }, 800);
     });
   }
 

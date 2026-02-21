@@ -686,6 +686,37 @@ ul { list-style: none; }
   color: rgba(255,255,255,0.4);
 }
 
+/* Form validation */
+.form__input:invalid:not(:placeholder-shown) {
+  border-color: #e74c3c;
+}
+.form__input:valid:not(:placeholder-shown) {
+  border-color: rgba(196, 137, 123, 0.5);
+}
+
+/* Submit button loading state */
+.btn--loading {
+  position: relative;
+  pointer-events: none;
+  opacity: 0.8;
+}
+.btn--loading::after {
+  content: '';
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  top: 50%;
+  right: 20px;
+  margin-top: -9px;
+  border: 2px solid transparent;
+  border-top-color: var(--cream-light);
+  border-radius: 50%;
+  animation: btnSpin 0.6s linear infinite;
+}
+@keyframes btnSpin {
+  to { transform: rotate(360deg); }
+}
+
 .waitlist__success h3 {
   font-family: var(--font-display);
   font-size: 1.8rem;

@@ -185,35 +185,21 @@ ul { list-style: none; }
   margin-bottom: 36px;
 }
 
-/* CSS soap block illustration */
-.soap-block {
-  width: 280px;
-  height: 280px;
+/* Hero photo */
+.hero__photo {
+  width: 100%;
+  max-width: 500px;
   margin: 0 auto;
-  border-radius: 12px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  display: block;
+  border-radius: 8px;
   box-shadow:
     0 20px 60px rgba(0,0,0,0.1),
     0 4px 16px rgba(0,0,0,0.05);
-  transform: rotate(-5deg);
+  transform: rotate(-3deg);
   transition: transform 0.6s var(--ease-spring);
 }
-.soap-block:hover {
+.hero__photo:hover {
   transform: rotate(0deg) scale(1.02);
-}
-.soap-block__cream {
-  flex: 1;
-  background: linear-gradient(135deg, #F5EDE4, #EDE3D7);
-}
-.soap-block__charcoal {
-  height: 4px;
-  background: var(--charcoal);
-}
-.soap-block__pink {
-  flex: 1;
-  background: linear-gradient(135deg, #D4A69A, #C4897B);
 }
 
 .hero__scroll-hint {
@@ -322,9 +308,21 @@ ul { list-style: none; }
   background: rgba(255,255,255,0.08);
   transform: translateY(-4px);
 }
-.ingredient-card__icon {
-  font-size: 2rem;
+.ingredient-card__img {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
   margin-bottom: 16px;
+  border-radius: 4px;
+}
+.ingredient-card__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s var(--ease-smooth);
+}
+.ingredient-card:hover .ingredient-card__img img {
+  transform: scale(1.05);
 }
 .ingredient-card h3 {
   font-family: var(--font-display);

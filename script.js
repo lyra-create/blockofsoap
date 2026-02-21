@@ -93,13 +93,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
 
-  // ===== Smooth parallax on hero soap block =====
-  const soapBlock = document.querySelector('.soap-block');
-  if (soapBlock && window.innerWidth > 768) {
+  // ===== Smooth parallax on hero image =====
+  const heroPhoto = document.querySelector('.hero__photo');
+  if (heroPhoto && window.innerWidth > 768) {
     window.addEventListener('scroll', () => {
       const scrolled = window.pageYOffset;
       const rate = scrolled * 0.15;
-      soapBlock.style.transform = `rotate(${-5 + scrolled * 0.01}deg) translateY(${rate}px)`;
+      heroPhoto.style.transform = `rotate(${-3 + scrolled * 0.008}deg) translateY(${rate}px)`;
     }, { passive: true });
   }
 
@@ -144,15 +144,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Soap block entrance
-  if (soapBlock) {
-    soapBlock.style.opacity = '0';
-    soapBlock.style.transform = 'rotate(-5deg) scale(0.8)';
-    soapBlock.style.transition = 'all 1s 0.5s var(--ease-spring)';
+  // Hero photo entrance
+  if (heroPhoto) {
+    heroPhoto.style.opacity = '0';
+    heroPhoto.style.transform = 'rotate(-3deg) scale(0.8)';
+    heroPhoto.style.transition = 'all 1s 0.5s var(--ease-spring)';
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        soapBlock.style.opacity = '1';
-        soapBlock.style.transform = 'rotate(-5deg) scale(1)';
+        heroPhoto.style.opacity = '1';
+        heroPhoto.style.transform = 'rotate(-3deg) scale(1)';
       });
     });
   }

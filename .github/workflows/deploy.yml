@@ -1,15 +1,38 @@
 name: Deploy to Coolify
+
 on:
   push:
     branches: [master]
+  workflow_dispatch:
 
 jobs:
   deploy:
-    runs-on: [self-hosted]
+    runs-on: [self-hosted, coolify]
     steps:
-      - name: Deploy via Coolify API
+      - name: Trigger Coolify Deployment
         run: |
-          curl -s -X POST "${{ secrets.COOLIFY_URL }}/api/v1/deploy" \
+          RESPONSE=$(curl -s -X POST \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_API_KEY }}" \
-            -H "Content-Type: application/json" \
-            -d '{"uuid": "${{ secrets.COOLIFY_APP_UUID }}", "force": true}'
+            "http://100.94.205.58:8000/api/v1/deploy?uuid=${{ secrets.COOLIFY_APP_UUID }}&force=false")
+          echo "Coolify response: $RESPONSE"
+          
+          DEPLOY_UUID=$(echo "$RESPONSE" | python3 -c "import sys,json; print(json.load(sys.stdin)['deployments'][0]['deployment_uuid'])" 2>/dev/null)
+          echo "Deployment UUID: $DEPLOY_UUID"
+          
+          for i in $(seq 1 24); do
+            sleep 5
+            STATUS=$(curl -s \
+              -H "Authorization: Bearer ${{ secrets.COOLIFY_API_KEY }}" \
+              "http://100.94.205.58:8000/api/v1/deployments/$DEPLOY_UUID" | \
+              python3 -c "import sys,json; print(json.load(sys.stdin).get('status','unknown'))" 2>/dev/null)
+            echo "[$i] Status: $STATUS"
+            if [ "$STATUS" = "finished" ]; then
+              echo "✅ Deployment successful!"
+              exit 0
+            elif [ "$STATUS" = "failed" ]; then
+              echo "❌ Deployment failed!"
+              exit 1
+            fi
+          done
+          echo "⏰ Deployment timed out"
+          exit 1
